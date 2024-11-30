@@ -9,16 +9,27 @@
 <body>
     <nav>
        <h4>Nemam pojma</h4>
-       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/login">Ulogiraj se</a></li>
-        <li><a href="/register">Registracija</a></li>
-       </ul>
+       {{#if loggedIn}}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/logout">Odlogiraj se</a></li>
+        </ul>
+        {{else}}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Ulogiraj se</a></li>
+            <li><a href="/register">Registracija</a></li>
+        </ul>
+        {{/if}}
     </nav>
 
     <div class="container mt-4">
         <div class="jumbotron">
+            {{#if loggedIn}}
+            <h1 class="display-4">Welcome, {{username}}</h1>
+            {{else}}
             <h1 class="display-4">Ulogiraj se</h1>
+            {{/if}}
             <p class="lead"></p>
             <hr class="my-4">
             <p></p>

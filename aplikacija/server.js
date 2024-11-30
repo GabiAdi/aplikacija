@@ -1,12 +1,14 @@
 const express = require("express");
 const mysql = require("mysql");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 const path = require("path");
+const session = require("express-session");
 
 dotenv.config({ path: "./.env" });
 
 const app = express();
-const port = 3030;
+const port = process.env.PORT;
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -15,11 +17,18 @@ const db = mysql.createConnection({
     database: process.env.DB
 });
 
+/*app.use(session({
+    secret: process.env.S_SECRET,
+    resave: true,
+    saveUninitialized: true,
+}));*/
+
 const publicDirectory = path.join(__dirname, "./public");
 app.use(express.static(publicDirectory));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.set("view engine" , "hbs");
 

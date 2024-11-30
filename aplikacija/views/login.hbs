@@ -24,11 +24,11 @@
             <div class="card-body">
                 <form action="/auth/login" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="username" name="name">
+                        <input type="text" class="form-control" id="username" name="name" required>
                         <label for="username">Korisničko ime</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" required>
                         <label for="password">Lozinka</label>
                     </div>
 
@@ -37,7 +37,7 @@
             </div>
         </div>
         {{#if message}}
-            <h4 class="alert alert-danger mt-4">{{message}}</h4>
+            <h4 class="alert {{class}} mt-4">{{message}}<h4>
         {{/if}}
     </div>
 
