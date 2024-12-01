@@ -3,13 +3,13 @@ const mysql = require("mysql");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const session = require("express-session");
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env" }); // tajni podaci u .env datoteci
 
 const app = express();
 const port = process.env.PORT;
 
+// Spajanje s MySQL bazom podataka
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -17,14 +17,8 @@ const db = mysql.createConnection({
     database: process.env.DB
 });
 
-/*app.use(session({
-    secret: process.env.S_SECRET,
-    resave: true,
-    saveUninitialized: true,
-}));*/
-
-const publicDirectory = path.join(__dirname, "./public");
-app.use(express.static(publicDirectory));
+const publicDirectory = path.join(__dirname, "./public"); 
+app.use(express.static(publicDirectory)); // Postavi ./public folder kao javno dostupan
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -32,6 +26,7 @@ app.use(cookieParser());
 
 app.set("view engine" , "hbs");
 
+// Spajanje s MySQL bazom podataka
 db.connect( (err) => {
     if(err) {
         console.log(err);
@@ -40,9 +35,11 @@ db.connect( (err) => {
     }
 });
 
+// Pokreni server
 const expressServer = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
+// Koristenje drugih javascript datoteka za druge stranice
 app.use("/", require("./routes/pages"));
 app.use("/auth", require("./routes/auth"));
